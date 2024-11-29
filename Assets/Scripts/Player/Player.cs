@@ -87,7 +87,7 @@ public class Player : MonoBehaviour
             }
         }
         else
-            yVelocity -= gravityAcceleration * Time.deltaTime;
+            yVelocity -= gravityAcceleration;
 
         moveDir.y = yVelocity;
 
