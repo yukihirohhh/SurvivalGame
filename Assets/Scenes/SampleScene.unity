@@ -1976,8 +1976,8 @@ MonoBehaviour:
   maxThirst: 100
   hungerDepletion: 0.04
   thirstDepletion: 0.08
-  hungerDamage: 0.3
-  thirstDamage: 0.2
+  hungerDamage: 0.65
+  thirstDamage: 0.25
   healthBar: {fileID: 1645295695}
   hungerBar: {fileID: 939752165}
   thirstBar: {fileID: 1309817294}
