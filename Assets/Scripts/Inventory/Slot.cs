@@ -21,7 +21,7 @@ public class Slot : MonoBehaviour
         UpdateSlot();
     }
 
-    private void UpdateSlot()
+    public void UpdateSlot()
     {
         if(data == null)
         {
@@ -34,6 +34,9 @@ public class Slot : MonoBehaviour
         {
             isEmpty = false;
 
+            Icon.sprite = data.icon;
+            stackText.text = $"x{stackSize}";
+
             Icon.gameObject.SetActive(true);
             stackText.gameObject.SetActive(true);
         }
@@ -43,5 +46,23 @@ public class Slot : MonoBehaviour
     {
         data = data_;
         stackSize = stackSize_;
+    }
+
+    public void AddStackAmount(int stackSize_)
+    {
+        stackSize += stackSize_;
+    }
+
+    public void Drop()
+    {
+        GetComponentInParent<InventoryManager>().DropItem(this);
+    }
+
+    public void Clean()
+    {
+        data = null;
+        stackSize = 0;
+
+        UpdateSlot();
     }
 }
