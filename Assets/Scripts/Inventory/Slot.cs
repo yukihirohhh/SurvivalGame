@@ -4,9 +4,14 @@ using System.Data;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Unity.VisualScripting;
 
 public class Slot : MonoBehaviour, IPointerDownHandler,IPointerUpHandler,IPointerEnterHandler,IPointerExitHandler
 {
+
+    private DragDropHandler dragDropHandler;
+    private InventoryManager inventory;
+
     public ItemSO data;
     public int stackSize;
     [Space]
@@ -19,6 +24,9 @@ public class Slot : MonoBehaviour, IPointerDownHandler,IPointerUpHandler,IPointe
 
     private void Start()
     {
+        dragDropHandler = GetComponentInParent<DragDropHandler>();
+        inventory = GetComponentInParent<InventoryManager>();
+
         UpdateSlot();
     }
 
@@ -69,21 +77,48 @@ public class Slot : MonoBehaviour, IPointerDownHandler,IPointerUpHandler,IPointe
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        throw new System.NotImplementedException();
+        if(!dragDropHandler.isDragging)
+        {
+            if(eventData.button == PointerEventData.InputButton.Left && !IsEmpty)
+            {
+                dragDropHandler.slotDraggedFrom = this;
+                dragDropHandler.isDragging = true;
+            }
+        }
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        throw new System.NotImplementedException();
+        if(dragDropHandler.isDragging)
+        {
+            // DROP
+            if(dragDropHandler.slotDraggedTo == null)
+            {
+                dragDropHandler.slotDraggedFrom.Drop();
+                dragDropHandler.isDragging = false;
+            }
+            // DRAG & DROP
+            else if (dragDropHandler.slotDraggedTo != null)
+            {
+                inventory.DragDrop(dragDropHandler.slotDraggedFrom, dragDropHandler.slotDraggedTo);
+                dragDropHandler.isDragging = false;
+            }
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        throw new System.NotImplementedException();
+        if(dragDropHandler.isDragging)
+        {
+            dragDropHandler.slotDraggedTo = this;
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        throw new System.NotImplementedException();
+        if (dragDropHandler.isDragging)
+        {
+            dragDropHandler.slotDraggedTo = null;
+        }
     }
 }

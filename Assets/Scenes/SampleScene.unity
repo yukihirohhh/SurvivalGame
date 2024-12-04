@@ -759,6 +759,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 497947448}
   m_CullTransparentMesh: 1
+--- !u!1 &530949941
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 530949942}
+  - component: {fileID: 530949944}
+  - component: {fileID: 530949943}
+  m_Layer: 0
+  m_Name: Drag Drop Icon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &530949942
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 530949941}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1769504123}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &530949943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 530949941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &530949944
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 530949941}
+  m_CullTransparentMesh: 1
 --- !u!1 &532804845
 GameObject:
   m_ObjectHideFlags: 0
@@ -1372,6 +1447,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79e68cd2e45aada4ea71a033b3a2cfee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactableLayers:
+    serializedVersion: 2
+    m_Bits: 55
   interactionRange: 2
   interactionKey: 101
 --- !u!1 &1008335336
@@ -1415,6 +1493,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1030461643}
   - component: {fileID: 1030461644}
+  - component: {fileID: 1030461645}
   m_Layer: 0
   m_Name: All Menus
   m_TagString: Untagged
@@ -1462,6 +1541,22 @@ MonoBehaviour:
   slotTemplate: {fileID: 941643231331849356, guid: 1ffc4f00da425d64099f9384f5a09042, type: 3}
   contentHolder: {fileID: 746002968}
   allSlots: []
+--- !u!114 &1030461645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1030461642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c787e3ee3349d2444ae0cc249ee3e6f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDragging: 0
+  slotDraggedFrom: {fileID: 0}
+  slotDraggedTo: {fileID: 0}
+  dragDropIconImage: {fileID: 530949943}
 --- !u!1 &1086172123 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5026053755581633267, guid: d27ddc2f5090fcd428353fa94d02e946, type: 3}
@@ -2094,6 +2189,7 @@ RectTransform:
   m_Children:
   - {fileID: 888906055}
   - {fileID: 1030461643}
+  - {fileID: 530949942}
   m_Father: {fileID: 2121429432}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2640,7 +2736,7 @@ GameObject:
   - component: {fileID: 2121429430}
   - component: {fileID: 2121429433}
   - component: {fileID: 2121429434}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
