@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Cooked Meat
   m_EditorClassIdentifier: 
   itemType: 1
-  icon: {fileID: 0}
-  itemName: New Item
-  description: "\u8ABF\u7406\u3055\u308C\u305F\u8089"
+  icon: {fileID: 21300000, guid: 42880db6b0b8f2a4596592e38ad01030, type: 3}
+  itemName: "\u8ABF\u7406\u6E08\u307F\u306E\u8089"
+  description: "\u8ABF\u7406\u52A0\u5DE5\u3055\u308C\u305F\u8089"
   isStackable: 1
   maxStack: 5
   healthChange: 0

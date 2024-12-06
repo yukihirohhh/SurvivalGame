@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,26 +10,43 @@ public class InventoryManager : MonoBehaviour
 
     [Header("Settings")]
     public int inventorySize = 24;
-
+    public int hotbarSize = 6;
 
     [Header("Refs")]
     public GameObject dropModel;
     public Transform dropPos;
     public GameObject slotTemplate;
     public Transform contentHolder;
+    public Transform hotbarContentHolder;
 
     
 
     private Slot[] inventorySlots;
+    private Slot[] hotbarSlots;
+
     [SerializeField] private Slot[] allSlots;
 
     private void Start()
     {
+        GenerateHotbarlots();
         Generateslots();
     }
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+            hotbarSlots[0].Try_Use();
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+            hotbarSlots[1].Try_Use();
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+            hotbarSlots[2].Try_Use();
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+            hotbarSlots[3].Try_Use();
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+            hotbarSlots[4].Try_Use();
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+            hotbarSlots[5].Try_Use();
+
         if (Input.GetKeyDown(inventoryKey))
           opened = !opened;
 
@@ -65,6 +83,24 @@ public class InventoryManager : MonoBehaviour
 
         inventorySlots = inventrySlots_.ToArray();
         allSlots = allSlots_.ToArray();
+    }
+
+    private void GenerateHotbarlots()
+    {
+        List<Slot> inventrySlots_ = new List<Slot>();
+        List<Slot> hotbarList = new List<Slot> ();
+
+        // GENERATE SLOTS
+        for (int i = 0; i < hotbarSize; i++)
+        {
+            Slot slot = Instantiate(slotTemplate.gameObject, hotbarContentHolder).GetComponent<Slot>();
+
+            inventrySlots_.Add(slot);
+            hotbarList.Add(slot);
+        }
+
+        inventorySlots = inventrySlots_.ToArray();
+        hotbarSlots = hotbarList.ToArray();
     }
 
     public void DragDrop(Slot from, Slot to)

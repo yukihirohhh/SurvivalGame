@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Unity.VisualScripting;
+using System.Collections.Concurrent;
 
 public class Slot : MonoBehaviour, IPointerDownHandler,IPointerUpHandler,IPointerEnterHandler,IPointerExitHandler
 {
@@ -32,6 +33,19 @@ public class Slot : MonoBehaviour, IPointerDownHandler,IPointerUpHandler,IPointe
 
     public void UpdateSlot()
     {
+
+        if (data != null)
+        {
+            if (data.itemType != ItemSO.ItemType.Weapon)
+            {
+                if (stackSize <= 0)
+                {
+                    data = null;
+                }
+            }
+        }
+
+
         if(data == null)
         {
             isEmpty = true;
@@ -104,6 +118,27 @@ public class Slot : MonoBehaviour, IPointerDownHandler,IPointerUpHandler,IPointe
                 dragDropHandler.isDragging = false;
             }
         }
+    }
+
+    public void Try_Use()
+    {
+        if (data == null)
+            return;
+        if (data.itemType == ItemSO.ItemType.Consumable)
+            Consume();
+    }
+
+    public void Consume()
+    {
+        PlayerStats stats = GetComponentInParent<PlayerStats>();
+
+        stats.health += data.healthChange;
+        stats.hunger += data.hungerChange;
+        stats.thirst += data.thirstChange;
+
+        stackSize--;
+
+        UpdateSlot();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
