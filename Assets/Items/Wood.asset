@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb0e0c96e44b3c742a8a08ce2f90430e, type: 3}
-  m_Name: Cooked Meat
+  m_Name: Wood
   m_EditorClassIdentifier: 
-  itemType: 1
-  icon: {fileID: 21300000, guid: 42880db6b0b8f2a4596592e38ad01030, type: 3}
-  itemName: "\u8ABF\u7406\u6E08\u307F\u306E\u8089"
-  description: "\u8ABF\u7406\u52A0\u5DE5\u3055\u308C\u305F\u8089"
+  itemType: 0
+  icon: {fileID: 21300000, guid: 22a782ddd3c35234bbe32b370cb8d047, type: 3}
+  itemName: Wood
+  description: "\u305F\u3060\u306E\u6728\u6750"
   isStackable: 1
-  maxStack: 8
-  healthChange: 0
-  hungerChange: 25
+  maxStack: 50
+  healthChange: 10
+  hungerChange: 10
   thirstChange: 10
