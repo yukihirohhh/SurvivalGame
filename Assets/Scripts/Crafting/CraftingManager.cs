@@ -16,7 +16,7 @@ public class CraftingManager : MonoBehaviour
 
     public void GenerateRecipies()
     {
-        for(int i = 0; 1 < recipies.Length; i++)
+        for(int i = 0; i < recipies.Length; i++)
         {
             RecipieTemplate recipie = Instantiate(recipieTemplate.gameObject, contentHolder).GetComponent<RecipieTemplate>();
 
