@@ -23,7 +23,7 @@ public class RecipieTemplate : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if(eventData.button == PointerEventData.InputButton.Right)
+        if(eventData.button == PointerEventData.InputButton.Left)
         {
             crafting.Try_Craft(this);
         }
