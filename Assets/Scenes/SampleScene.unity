@@ -362,6 +362,7 @@ MonoBehaviour:
   recipies:
   - {fileID: 11400000, guid: 5c4216a26e247cc4ea543bd1d7686189, type: 2}
   contentHolder: {fileID: 962929451}
+  recipieInCraft: {fileID: 0}
 --- !u!1 &252758153 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5026053755581633267, guid: d27ddc2f5090fcd428353fa94d02e946, type: 3}
@@ -1721,6 +1722,7 @@ MonoBehaviour:
   slotTemplate: {fileID: 941643231331849356, guid: 1ffc4f00da425d64099f9384f5a09042, type: 3}
   contentHolder: {fileID: 746002968}
   hotbarContentHolder: {fileID: 692946001}
+  inventorySlots: []
   allSlots: []
 --- !u!114 &1030461645
 MonoBehaviour:
@@ -1756,7 +1758,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: a671317a40586734884d042aa9935a72, type: 2}
-  stackSize: 3
+  stackSize: 50
 --- !u!1 &1113627292
 GameObject:
   m_ObjectHideFlags: 0
