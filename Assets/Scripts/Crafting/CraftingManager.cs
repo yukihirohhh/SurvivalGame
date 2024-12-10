@@ -19,7 +19,6 @@ public class CraftingManager : MonoBehaviour
     public RecipieTemplate recipieInCraft;
     private bool isCrafting;
     private float currentTimer;
-    private float timer;
 
     private void Start()
     {
@@ -32,7 +31,7 @@ public class CraftingManager : MonoBehaviour
     {
         if(isCrafting)
         {
-            if(currentTimer < timer)
+            if(currentTimer > 0)
             {
                 recipieInCraft.timerText.text = currentTimer.ToString("f2");
             }
@@ -44,7 +43,7 @@ public class CraftingManager : MonoBehaviour
 
                 isCrafting = false;
             }
-            currentTimer += Time.deltaTime;
+            currentTimer -= Time.deltaTime;
         }
     }
 
@@ -78,8 +77,7 @@ public class CraftingManager : MonoBehaviour
 
         recipieInCraft = template;
         isCrafting = true;
-        currentTimer = 0;
-        timer = template.recipie.craftingTime;
+        currentTimer = template.recipie.craftingTime;
 
     }
 
@@ -92,6 +90,10 @@ public class CraftingManager : MonoBehaviour
         {
             inventory.AddItem(template.recipie.requirements[i].data, template.recipie.requirements[i].amountNeeded);
         }
+
+        isCrafting = false;
+
+        recipieInCraft.timerText.text = "";
     }
 
     public bool HasResource(CraftingRecipieSO recipie)
@@ -147,7 +149,7 @@ public class CraftingManager : MonoBehaviour
         // GET STACKS NEEDED
         for (int i = 0; i < recipie.requirements.Length; i++)
         {
-            stacksNeededList.Add(recipie.requirements[i].amountNeeded);
+            stacksNeededList.Add(0);
         }
 
         stacksNeeded = stacksNeededList.ToArray();
@@ -159,32 +161,36 @@ public class CraftingManager : MonoBehaviour
             
             for(int b = 0; b < inventory.inventorySlots.Length; b++)
             {
-                if (inventory.inventorySlots[b].IsEmpty)
-                    return;
 
-                if (inventory.inventorySlots[b] == recipie.requirements[i].data)
+                if (!inventory.inventorySlots[b].IsEmpty)
                 {
-                    if (stacksNeeded[i] < recipie.requirements[i].amountNeeded)
+
+                    if (inventory.inventorySlots[b].data == recipie.requirements[i].data)
                     {
-                        if (stacksNeeded[i] - inventory.inventorySlots[b].stackSize < 0)
-                        {
-                            inventory.inventorySlots[b].stackSize -= stacksNeeded[i];
 
-                            stacksNeeded[i] = 0;
-                        }
-                        else
+                        if (stacksNeeded[i] < recipie.requirements[i].amountNeeded)
                         {
-                            stacksNeeded[i] -= inventory.inventorySlots[b].stackSize;
-                            inventory.inventorySlots[b].Clean();
+
+                            if (stacksNeeded[i] + inventory.inventorySlots[b].stackSize > recipie.requirements[i].amountNeeded)
+                            {
+                                int amountLeftOnSlot = (inventory.inventorySlots[b].stackSize + stacksNeeded[i]) - recipie.requirements[i].amountNeeded;
+
+                                inventory.inventorySlots[i].stackSize = amountLeftOnSlot;
+
+                                stacksNeeded[i] = recipie.requirements[i].amountNeeded;
+                            }
+                            else
+                            {
+                                stacksNeeded[i] += inventory.inventorySlots[b].stackSize;
+
+                                inventory.inventorySlots[b].Clean();
+                            }
                         }
+
+                        inventory.inventorySlots[b].UpdateSlot();
                     }
-
-
-                    inventory.inventorySlots[b].UpdateSlot();
                 }
             }
-
         }
     }
-
 }
