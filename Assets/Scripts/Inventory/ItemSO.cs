@@ -17,6 +17,13 @@ public class ItemSO : ScriptableObject
     public bool isStackable;
     public int maxStack = 1;
 
+    [Header("Weapon")]
+    public float damage = 20f;
+    public float range = 200f;
+    [Space]
+    public int magSize = 30;
+    public float fireRate = 0.1f;
+
     [Header("Consumable")]
     public float healthChange = 10f;
     public float hungerChange = 10f;

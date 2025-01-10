@@ -24,6 +24,11 @@ public class Player : MonoBehaviour
     private float gravityAcceleration;
     private float yVelocity;
 
+
+
+
+    [HideInInspector] public bool running;
+
     void Start()
     {
         cc = GetComponent<CharacterController>();
@@ -57,6 +62,8 @@ public class Player : MonoBehaviour
             cam.transform.localPosition = Vector3.Lerp(cam.transform.localPosition, new Vector3(0, 2, 0), crouchTransitionSpeed * Time.deltaTime);
             cc.height = Mathf.Lerp(cc.height, 2, crouchTransitionSpeed * Time.deltaTime);
             cc.center = Vector3.Lerp(cc.center,new Vector3(0,1,0),crouchTransitionSpeed *Time.deltaTime);
+
+            running = true;
         }
         else if (Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.LeftShift))
         {
@@ -67,6 +74,7 @@ public class Player : MonoBehaviour
             cc.height = Mathf.Lerp(cc.height, 1.2f, crouchTransitionSpeed * Time.deltaTime);
             cc.center = Vector3.Lerp(cc.center, new Vector3(0, 0.59f, 0), crouchTransitionSpeed * Time.deltaTime);
 
+            running = false;
         }
         else
         {
@@ -75,6 +83,7 @@ public class Player : MonoBehaviour
             cam.transform.localPosition = Vector3.Lerp(cam.transform.localPosition, new Vector3(0, 2, 0), crouchTransitionSpeed * Time.deltaTime);
             cc.height = Mathf.Lerp(cc.height, 2, crouchTransitionSpeed * Time.deltaTime);
             cc.center = Vector3.Lerp(cc.center, new Vector3(0, 1, 0), crouchTransitionSpeed * Time.deltaTime);
+            running = false;
         }
 
         if (cc.isGrounded)

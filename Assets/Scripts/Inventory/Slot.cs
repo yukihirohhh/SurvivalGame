@@ -124,6 +124,34 @@ public class Slot : MonoBehaviour, IPointerDownHandler,IPointerUpHandler,IPointe
     {
         if (data == null)
             return;
+
+        if(data.itemType == ItemSO.ItemType.Weapon || data.itemType == ItemSO.ItemType.MeleeWeapon)
+        {
+            bool shouldJustUnequip = false;
+
+            // UPEQUIP ALL ACTIVE EWAPONS
+            for (int i = 0; i < inventory.weapons.Length; i++)
+            {
+                if (inventory.weapons[i].gameObject.activeSelf)
+                {
+                    if (inventory.weapons[i].slotEquippedOn == this)
+                        shouldJustUnequip = true;
+
+                    inventory.weapons[i].UnEquip();
+                }
+            }
+
+            if(shouldJustUnequip)
+                return;
+
+            // EQUIP WEAPONS
+            for(int i = 0; i < inventory.weapons.Length; i++)
+            {
+                if (inventory.weapons[i].weaponData == data)
+                    inventory.weapons[i].Equip(this);
+            }
+        }
+
         if (data.itemType == ItemSO.ItemType.Consumable)
             Consume();
     }
