@@ -24,6 +24,11 @@ public class ItemSO : ScriptableObject
     public int magSize = 30;
     public float fireRate = 0.1f;
 
+    [Space]
+    public float horizontalRecoil;
+    public float minVerticalRecoil;
+    public float maxVerticalRecoil;
+
     [Header("Consumable")]
     public float healthChange = 10f;
     public float hungerChange = 10f;

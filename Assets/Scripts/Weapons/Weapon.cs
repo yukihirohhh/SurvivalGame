@@ -12,11 +12,23 @@ public class Weapon : MonoBehaviour
     [HideInInspector] public Slot slotEquippedOn;
 
     public ItemSO weaponData;
+    public bool isAutomatic;
+    [Space]
+    public Transform shootPoint;
+
     [Header("Aiming")]
     public float aimSpeed = 10;
     public Vector3 hipPos;
     public Vector3 aimPos;
     public bool isAiming;
+
+
+    [HideInInspector] public bool isReloading;
+    [HideInInspector] public bool hasTakenOut;
+
+    private float currentFireRate;
+    private float fireRate;
+
 
     private void Start()
     {
@@ -24,6 +36,11 @@ public class Weapon : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
 
         transform.localPosition = hipPos;
+
+
+        fireRate = weaponData.fireRate;
+
+        currentFireRate = weaponData.fireRate;
     }
 
     private void Update()
@@ -42,9 +59,19 @@ public class Weapon : MonoBehaviour
     #region Fire Weapon Functions
 
 
+    public void Shoot()
+    {
+        if (currentFireRate < fireRate || isReloading || !hasTakenOut || player.running)
+            return;
+
+        anim.CrossFadeInFixedTime("Shoot_Base", 0.015f);
+
+        GetComponentInParent<CameraLook>().RecoilCamera(Random.Range(-weaponData.horizontalRecoil,weaponData.horizontalRecoil),Random.Range(weaponData.minVerticalRecoil, weaponData.maxStack));
+    }
+
     public void UpdateAiming()
     {
-        if(Input.GetButton("Fire1") && !player.running && player.GetComponent<CharacterController>().isGrounded)
+        if(Input.GetButton("Fire2") && !player.running && player.GetComponent<CharacterController>().isGrounded)
         {
             transform.localPosition = Vector3.Slerp(transform.localPosition, aimPos, aimSpeed * Time.deltaTime);
         }
